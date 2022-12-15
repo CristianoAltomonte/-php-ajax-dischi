@@ -2,18 +2,27 @@
 
 include_once __DIR__ . '/../db/index.php';
 
-$arrayDischi = [];
+$arrayFiltrato = [];
 
+if (!empty($_GET) && !empty($_GET['genre'])) {
 
-foreach ($database as $elem) {
+    foreach ($database as $elem) {
 
-    $arrayDischi[] = $elem;
+        if ($elem['genre'] == $_GET['genre']) {
 
+            $arrayFiltrato[] = $elem;
+        }
+    }
+
+} else {
+
+    $arrayFiltrato = $database;
 }
 
 
 header('Content-type: application/json');
 
-echo json_encode($arrayDischi);
+echo json_encode($arrayFiltrato);
+
 
 ?>
